@@ -7,7 +7,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Text style={styles.title}>
-        phumlani
+        Methodist Hymns Book
       </Text>
     </SafeAreaView>
   );
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   mainContainer: {
-    //backgroundColor: "#808080"
+    backgroundColor: "#ED1B24"
   },
   title: {
     color: "#ffffff"
