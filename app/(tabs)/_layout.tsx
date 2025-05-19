@@ -1,6 +1,9 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -26,6 +29,20 @@ export default function TabLayout() {
           default: {},
         }),
       }}>
+
+import { Ionicons } from '@expo/vector-icons';
+
+<Tabs.Screen
+  name="language"
+  options={{
+    title: 'Language',
+    tabBarIcon: ({ color }) => (
+      <Ionicons name="language" size={28} color={color} />
+    ),
+  }}
+/>
+
+
       <Tabs.Screen
         name="index"
         options={{
@@ -33,6 +50,34 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
+
+
+      <Tabs.Screen
+          name="music"
+          options={{
+            title: 'Music',
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="musical-notes" size={28} color={color} />
+            ),
+          }}
+        />
+
+import { Ionicons } from '@expo/vector-icons';
+
+<Tabs.Screen
+  name="settings"
+  options={{
+    title: 'Settings',
+    tabBarIcon: ({ color }) => (
+      <Ionicons name="settings-outline" size={28} color={color} />
+    ),
+  }}
+/>
+
+
+
+     
+
       <Tabs.Screen
         name="explore"
         options={{
@@ -40,6 +85,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
+
+
    
     </Tabs>
   );
