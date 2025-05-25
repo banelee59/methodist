@@ -1,4 +1,4 @@
-/*import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -52,7 +52,7 @@ Was blind, but now I see.`;
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <ScrollView>
-        {/* Header /}
+        {/* Header */}
         /*<View style={styles.headerContainer}>
           <View style={styles.headerTopRow}>
             <Text style={styles.headerTitle}>Dashboard</Text>
@@ -80,7 +80,7 @@ Was blind, but now I see.`;
             Day {currentDay} of {totalDays}
           </Text>
 
-          {/* Login Menu }
+          {/* Login Menu */}
           {showLoginMenu && (
             <View style={styles.loginMenu}>
               <TouchableOpacity onPress={() => { setShowLoginModal(true); setShowLoginMenu(false); }}>
@@ -93,7 +93,7 @@ Was blind, but now I see.`;
           )}
         </View>
 
-        {/* Progress Section /}
+        {/* Progress Section */}
         <View style={styles.progressContainer}>
           <Progress.Bar
             progress={progress}
@@ -106,7 +106,7 @@ Was blind, but now I see.`;
           />
           <Text style={styles.progressText}>{Math.round(progress * 100)}% completed</Text>
 
-          {/* Stats /}
+          {/* Stats */}
           <View style={styles.statsBar}>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{timeSpent}</Text>
@@ -123,19 +123,19 @@ Was blind, but now I see.`;
           </View>
         </View>
 
-        {/* Content /}
+        {/* Content */}
         <View style={styles.contentContainer}>
           <Text style={styles.sectionTitle}>Coming Soon</Text>
           <Text style={styles.sectionSubtitle}>Daily Readings • Reminders • Milestones</Text>
 
-          {/* Verse of the Day /}
+          {/* Verse of the Day */}
           <View style={styles.verseContainer}>
             <Text style={styles.verseTitle}>Verse of the Day</Text>
             <Text style={styles.verseText}>"{verseText}"</Text>
             <Text style={styles.verseRef}>— {verseRef}</Text>
           </View>
 
-          {/* Hymn of the Day /}
+          {/* Hymn of the Day */}
           <View style={styles.hymnContainer}>
             <Text style={styles.hymnTitle}>Hymn of the Day</Text>
             <Text style={styles.hymnLyrics}>{hymnLyrics}</Text>
@@ -143,7 +143,7 @@ Was blind, but now I see.`;
         </View>
       </ScrollView>
 
-      {/* Login Modal /}
+      {/* Login Modal */}
       <Modal visible={showLoginModal} animationType="slide" transparent>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -173,7 +173,7 @@ Was blind, but now I see.`;
         </View>
       </Modal>
 
-      {/* Signup Modal /}
+      {/* Signup Modal */}
       <Modal visible={showSignupModal} animationType="slide" transparent>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -397,4 +397,3 @@ const styles = StyleSheet.create({
     color: '#E83C2F',
   },
 });
-*/
