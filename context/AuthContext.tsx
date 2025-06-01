@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import axios from 'axios';
+import axios from '../lib/axiosConfig'; // Import the axios instance
+
 
 interface User {
   // Define the user properties based on your API response
@@ -46,4 +47,4 @@ export const useAuth = (): AuthContextType => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}; 
+};

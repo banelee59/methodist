@@ -8,18 +8,32 @@ import 'react-native-reanimated';
 import SplashScreenComponent from '../components/SplashScreen';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 
-interface User {
-  email: string
-  password: string
-  }
-
-
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Create a separate component that uses the auth context
+function AppNavigator() {
+  const { user } = useAuth(); // Now this is inside the AuthProvider
+
+  return (
+    <ThemeProvider value={DefaultTheme}>
+      {user ? (
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      ) : (
+        <Stack>
+          <Stack.Screen name="Login" />
+          <Stack.Screen name="Register" />
+        </Stack>
+      )}
+      <StatusBar style="light" />
+    </ThemeProvider>
+  );
+}
+
 export default function RootLayout() {
-  const { user } = useAuth();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -53,23 +67,10 @@ export default function RootLayout() {
     return <SplashScreenComponent />;
   }
 
-  // After 5 seconds, show the main app
+  // After 5 seconds, show the main app wrapped in AuthProvider
   return (
     <AuthProvider>
-      <ThemeProvider value={DefaultTheme}>
-        {user ? (
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        ) : (
-          <Stack>
-            <Stack.Screen name="Login" />
-            <Stack.Screen name="Register" />
-          </Stack>
-        )}
-        <StatusBar style="light" />
-      </ThemeProvider>
+      <AppNavigator />
     </AuthProvider>
   );
-} 
+}
