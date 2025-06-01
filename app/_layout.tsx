@@ -6,11 +6,20 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import SplashScreenComponent from '../components/SplashScreen';
+import { AuthProvider, useAuth } from '../context/AuthContext';
+
+interface User {
+  email: string
+  password: string
+  }
+
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const { user } = useAuth();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -46,12 +55,21 @@ export default function RootLayout() {
 
   // After 5 seconds, show the main app
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="light" />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider value={DefaultTheme}>
+        {user ? (
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        ) : (
+          <Stack>
+            <Stack.Screen name="Login" />
+            <Stack.Screen name="Register" />
+          </Stack>
+        )}
+        <StatusBar style="light" />
+      </ThemeProvider>
+    </AuthProvider>
   );
-}
+} 
