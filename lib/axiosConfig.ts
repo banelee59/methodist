@@ -14,22 +14,22 @@ const axiosInstance = axios.create({
 // Optionally, you can add interceptors for requests and responses
 axiosInstance.interceptors.request.use(
   (config) => {
-    // You can modify the request config here if needed
+    console.log('Request Config:', config); // Log the request configuration
     return config;
   },
   (error) => {
-    // Handle the error
+    console.error('Request Error:', error); // Log any request errors
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // You can modify the response here if needed
+    console.log('Response Data:', response.data); // Log the response data
     return response;
   },
   (error) => {
-    // Handle the error
+    console.error('Response Error:', error); // Log any response errors
     return Promise.reject(error);
   }
 );

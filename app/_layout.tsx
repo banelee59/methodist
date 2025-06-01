@@ -1,39 +1,45 @@
-import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot, useSegments, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import SplashScreenComponent from '../components/SplashScreen';
+import { useColorScheme } from '../hooks/useColorScheme'; // Adjust path as needed
 import { AuthProvider, useAuth } from '../context/AuthContext';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-// Create a separate component that uses the auth context
-function AppNavigator() {
-  const { user } = useAuth(); // Now this is inside the AuthProvider
+function RootLayoutNav({ colorScheme }: { colorScheme: 'light' | 'dark' }) {
+  const { user } = useAuth(); // Remove isLoading if your AuthContext doesn't have it
+  const segments = useSegments();
+  
+  useEffect(() => {
+    console.log('User:', user);
+    console.log('Segments:', segments);
+    
+    const inAuthGroup = segments[0] === '(auth)';
+    
+    if (!user && !inAuthGroup) {
+      console.log('Redirecting to login');
+      router.replace('/(auth)/login');
+    } else if (user && inAuthGroup) {
+      console.log('Redirecting to tabs');
+      router.replace('/(tabs)');
+    }
+  }, [user, segments]);
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      {user ? (
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      ) : (
-        <Stack>
-          <Stack.Screen name="Login" />
-          <Stack.Screen name="Register" />
-        </Stack>
-      )}
-      <StatusBar style="light" />
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Slot />
+      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -67,10 +73,9 @@ export default function RootLayout() {
     return <SplashScreenComponent />;
   }
 
-  // After 5 seconds, show the main app wrapped in AuthProvider
   return (
     <AuthProvider>
-      <AppNavigator />
+      <RootLayoutNav colorScheme={colorScheme ?? 'light'} />
     </AuthProvider>
   );
 }
